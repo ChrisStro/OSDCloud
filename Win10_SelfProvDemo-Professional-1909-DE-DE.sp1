@@ -19,8 +19,13 @@ Write-Host  -ForegroundColor Cyan "Set AutopilotConfiguration.json for unattende
 $MyOSDCloud = @{AutopilotFile = "x:\OSDCLOUD\Autopilot\Profiles\SelfProv_AutopilotConfigurationFile.json"}
 
 #Start OSDCloud ZTI the RIGHT way
-Write-Host  -ForegroundColor Cyan "Start OSDCloud with MY Parameters"
-Start-OSDCloud -OSBuild 1909 -OSEdition Pro -OSLanguage de-de -ZTI
+if (Find-OSDCloudOfflineFile) {
+    Write-Host  -ForegroundColor Cyan "Start OSDCloud in offline mode"
+    Start-OSDCloud -FindImageFile -ImageIndex 7 -ZTI
+} else {
+    Write-Host  -ForegroundColor Cyan "Start OSDCloud in cloud mode"
+    Start-OSDCloud -OSBuild 1909 -OSEdition Pro -OSLanguage de-de -ZTI    
+}
 
 #Anything I want  can go right here and I can change it at any time since it is in the Cloud!!!!!
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
