@@ -16,7 +16,7 @@ Import-Module OSD -Force
 
 #Define AutopilotConfiguration.json for Selfprovisioning Demo
 Write-Host  -ForegroundColor Cyan "Set AutopilotConfiguration.json for unattended provisioning"
-$MyOSDCloud = @{}
+$Global:MyOSDCloud = @{}
 $MyOSDCloud.AutopilotFile = Find-OSDCloudOfflineFile -Name *AutopilotConfigurationFile* | Select-Object -First 1
 
 #Start OSDCloud ZTI the RIGHT way
