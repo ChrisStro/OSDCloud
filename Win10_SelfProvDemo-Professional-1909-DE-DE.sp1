@@ -21,7 +21,10 @@ $MyOSDCloud = @{AutopilotFile = "x:\OSDCLOUD\Autopilot\Profiles\SelfProv_Autopil
 #Start OSDCloud ZTI the RIGHT way
 if (Find-OSDCloudOfflineFile) {
     Write-Host  -ForegroundColor Cyan "Start OSDCloud in offline mode"
-    Start-OSDCloud -FindImageFile -ImageIndex 7 -ZTI
+    $MyOSDCloud.ImageFileOffline = (Find-OSDCloudOfflineFile -Name Win10*).FullName
+    $MyOSDCloud.OSImageIndex = 8
+    $MyOSDCloud.ZTI = $false
+    Invoke-OSDCloud
 } else {
     Write-Host  -ForegroundColor Cyan "Start OSDCloud in cloud mode"
     Start-OSDCloud -OSBuild 1909 -OSEdition Pro -OSLanguage de-de -ZTI    
