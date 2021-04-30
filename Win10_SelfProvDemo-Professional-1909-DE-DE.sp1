@@ -23,7 +23,7 @@ if (Find-OSDCloudOfflineFile) {
     Write-Host  -ForegroundColor Cyan "Start OSDCloud in offline mode"
     $MyOSDCloud.ImageFileOffline = (Find-OSDCloudOfflineFile -Name Win10*).FullName
     $MyOSDCloud.OSImageIndex = 8
-    $MyOSDCloud.ZTI = $false
+    $MyOSDCloud.ZTI = $true
     Invoke-OSDCloud
 } else {
     Write-Host  -ForegroundColor Cyan "Start OSDCloud in cloud mode"
