@@ -9,8 +9,9 @@ if ((Get-MyComputerModel) -match 'Virtual') {
 Start-OSDProgress
 
 #Start OSDCloud ZTI
-Write-Host -ForegroundColor Green "Start OSDCloud in cloud mode"
-    
+Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..."
+Start-Sleep -Seconds 2
+
 # set OSDProgress Phase to Download
 Update-OSDProgress -Phase Download
     
