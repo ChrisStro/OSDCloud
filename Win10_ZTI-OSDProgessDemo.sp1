@@ -8,13 +8,6 @@ if ((Get-MyComputerModel) -match 'Virtual') {
 
 Start-OSDProgress
 
-#Make sure I have the latest OSD Content
-Write-Host  -ForegroundColor Cyan "Updating the awesome OSD PowerShell Module"
-Install-Module OSD -Force
-
-Write-Host  -ForegroundColor Cyan "Importing the sweet OSD PowerShell Module"
-Import-Module OSD -Force
-
 #Start OSDCloud ZTI
 Write-Host -ForegroundColor Green "Start OSDCloud in cloud mode"
     
