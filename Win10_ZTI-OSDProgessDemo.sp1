@@ -13,6 +13,7 @@ Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..."
 Start-Sleep -Seconds 10
 
 # set OSDProgress Phase to Download
+Write-Host  -ForegroundColor green "Change Phase to Download"
 Update-OSDProgress -Phase Download
     
 Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -OSLanguage de-de -ZTI
