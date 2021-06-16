@@ -10,7 +10,7 @@ Start-OSDProgress
 
 #Start OSDCloud ZTI
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..."
-Start-Sleep -Seconds 2
+Start-Sleep -Seconds 10
 
 # set OSDProgress Phase to Download
 Update-OSDProgress -Phase Download
