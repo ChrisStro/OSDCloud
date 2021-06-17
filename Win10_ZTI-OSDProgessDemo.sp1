@@ -27,6 +27,9 @@ Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction stuff..."
 # set OSDProgress Phase to Download
 Update-OSDProgress -Phase Finish
 
+# lets throw an error, just for fun
+Update-OSDProgress -DisplayError "Custom error message, pls unlock screen!"
+
 #Restart from WinPE
 #Start-Sleep -Seconds 20
 #wpeutil reboot
