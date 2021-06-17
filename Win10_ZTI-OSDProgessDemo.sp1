@@ -24,9 +24,6 @@ Update-OSDProgress -Phase Install
 #Anything I want  can go right here and I can change it at any time since it is in the Cloud!!!!!
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction stuff..."
 
-# set OSDProgress Phase to Download
-Update-OSDProgress -Phase Finish
-
 # lets throw an error, just for fun
 Update-OSDProgress -DisplayError "Custom error message, pls unlock screen!"
 
