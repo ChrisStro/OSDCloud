@@ -1,10 +1,10 @@
 Write-Host -ForegroundColor Cyan "Hey this script running an OSD Cloud ZTI Deployment while displaying a MahApps.Metro progress Window"
 
 #Change Display Resolution for Virtual Machine
-if ((Get-MyComputerModel) -match 'Virtual') {
-    Write-Host  -ForegroundColor Cyan "Setting Display Resolution to 1600x"
-    Set-DisRes 1600
-}
+#if ((Get-MyComputerModel) -match 'Virtual') {
+#    Write-Host  -ForegroundColor Cyan "Setting Display Resolution to 1600x"
+#    Set-DisRes 1600
+#}
 
 Start-OSDProgress
 
