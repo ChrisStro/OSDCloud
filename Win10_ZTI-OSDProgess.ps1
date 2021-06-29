@@ -16,4 +16,4 @@ Watch-OSDCloudProvisioning {
     #Restart from WinPE
     #Start-Sleep -Seconds 20
     #wpeutil reboot
-}
+} -Window
