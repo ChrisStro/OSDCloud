@@ -1,10 +1,13 @@
 Watch-OSDCloudProvisioning {
     Write-Host -ForegroundColor Cyan "Hey this script running an OSD Cloud ZTI Deployment while displaying a MahApps.Metro progress Window"
 
-    #Start OSDCloud ZTI
+    #Start OSDCloud ZTI, Update Module first
     Update-OSDProgress -Text "Starting OSDCloud PreAction stuff..." # output to UI
-    Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..." # output to console
-    Start-Sleep -Seconds 5
+    Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..." # output to console    
+    Start-Sleep -Seconds 3
+    Update-OSDProgress -Text "Updating & Import the awesome OSD PowerShell Module"
+    Install-Module OSD -Force
+    Import-Module OSD -Force
     Update-OSDProgress -Text " " # hide first text
 
     Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -ZTI
