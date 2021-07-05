@@ -13,7 +13,7 @@ Watch-OSDCloudProvisioning {
     Update-OSDProgress -Text "Start OSDCloud : OSBuild 20H2"
     Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -ZTI
 
-    # Doning Postaction stuff
+    # Post-Action stuff
     Update-OSDProgress -Text "Starting OSDCloud PostAction stuff..."
     Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction stuff..."
     Start-Sleep -Seconds 5
