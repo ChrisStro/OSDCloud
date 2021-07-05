@@ -22,7 +22,7 @@ Watch-OSDCloudProvisioning {
     #Update-OSDProgress -DisplayError "Custom error message, pls unlock screen!"
 
     #Restart from WinPE
-    Update-OSDProgress -Text "Reboot in 20 seconds"
+    Update-OSDProgress -Phase Finish -Text "Reboot in 20 seconds"
     Start-Sleep -Seconds 20
     wpeutil reboot
 }
