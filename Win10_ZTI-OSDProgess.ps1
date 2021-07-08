@@ -10,7 +10,7 @@ Watch-OSDCloudProvisioning {
     Import-Module OSD -Force
     
     # Start OSD Cloud and let the user know
-    Update-OSDProgress -Text "Start OSDCloud : OSBuild 20H2"
+    Update-OSDProgress -Text "Running OSDCloud : OSBuild 20H2"
     Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -ZTI
 
     # Post-Action stuff
