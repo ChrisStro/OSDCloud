@@ -11,7 +11,7 @@ Watch-OSDCloudProvisioning {
     
     # Start OSD Cloud and let the user know
     Update-OSDProgress -Text "Running OSDCloud : OSBuild 20H2"
-    Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -ZTI -Manufacturer HP -Product 826b
+    Start-OSDCloud -OSBuild 20H2 -OSEdition Pro -ZTI
 
     # Post-Action stuff
     Update-OSDProgress -Text "Starting OSDCloud PostAction stuff..."
