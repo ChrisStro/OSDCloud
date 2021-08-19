@@ -25,5 +25,5 @@ Watch-OSDCloudProvisioning {
     #Restart from WinPE
     Update-OSDProgress -Phase Finish -Text "Reboot in 20 seconds"
     Start-Sleep -Seconds 20
-    wpeutil reboot
+    Restart-Computer -Force
 }
