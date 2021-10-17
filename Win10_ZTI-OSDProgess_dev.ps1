@@ -5,9 +5,9 @@ Watch-OSDCloudProvisioning {
     Update-OSDProgress -Text "Starting OSDCloud PreAction stuff..." # output to UI
     Write-Host  -ForegroundColor Cyan "Starting OSDCloud PreAction stuff..." # output to console    
     Start-Sleep -Seconds 3
-    Update-OSDProgress -Text "Updating and Import the awesome OSD PowerShell Module"
-    Install-Module OSD -Force
-    Import-Module OSD -Force
+    #Update-OSDProgress -Text "Updating and Import the awesome OSD PowerShell Module"
+    #Install-Module OSD -Force
+    #Import-Module OSD -Force
     
     # Start OSD Cloud and let the user know
     Update-OSDProgress -Text "Running OSDCloud : OSBuild 20H2"
