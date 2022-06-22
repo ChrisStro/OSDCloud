@@ -26,4 +26,4 @@ Watch-OSDCloudProvisioning {
     Update-OSDProgress -Phase Finish -Text "Reboot in 20 seconds"
     Start-Sleep -Seconds 20
     Restart-Computer -Force
-} -Style Win11
+} -Style Win10
