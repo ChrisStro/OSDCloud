@@ -1,5 +1,5 @@
 # Running pre actions
-Write-Host  -ForegroundColor Cyan "Load own Powershell functions from GitHub to extend functionality"
+Write-Host  -ForegroundColor Cyan "Starting SeguraOSD's Custom OSDCloud ..."
 
 #Start OSDCloud ZTI the RIGHT way
 Start-OSDCloud -FindImageFile -SkipAutopilot -ZTI
