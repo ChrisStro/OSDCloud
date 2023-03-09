@@ -9,7 +9,7 @@ if ((Get-MyComputerModel) -match 'Virtual') {
 
 #Start OSDCloud ZTI the RIGHT way
 Write-Host -ForegroundColor Green "Start OSDCloud in cloud mode"
-Start-OSDCloud -OSBuild 22H2 -OSEdition Pro -OSLanguage de-de -ZTI
+Start-OSDCloud -OSBuild 22H2 -OSEdition Pro -OSLanguage de-de -SkipAutopilot -ZTI
 
 #Anything I want  can go right here and I can change it at any time since it is in the Cloud!!!!!
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
