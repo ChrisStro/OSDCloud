@@ -7,13 +7,6 @@ if ((Get-MyComputerModel) -match 'Virtual') {
     Set-DisRes 1600
 }
 
-#Make sure I have the latest OSD Content
-Write-Host  -ForegroundColor Cyan "Updating the awesome OSD PowerShell Module"
-Install-Module OSD -Force
-
-Write-Host  -ForegroundColor Cyan "Importing the sweet OSD PowerShell Module"
-Import-Module OSD -Force
-
 #TODO: Spend the time to write a function to do this and put it here
 Write-Host  -ForegroundColor Cyan "Ejecting ISO"
 Write-Warning "That didn't work because I haven't coded it yet!"
@@ -21,7 +14,7 @@ Write-Warning "That didn't work because I haven't coded it yet!"
 
 #Start OSDCloud ZTI the RIGHT way
 Write-Host  -ForegroundColor Cyan "Start OSDCloud with MY Parameters"
-Start-OSDCloud -OSLanguage de-de -OSBuild 21H2 -OSEdition Enterprise -ZTI
+Start-OSDCloud -OSLanguage de-de -OSBuild 22H2 -OSEdition Pro -ZTI
 
 #Anything I want  can go right here and I can change it at any time since it is in the Cloud!!!!!
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
