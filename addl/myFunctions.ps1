@@ -1,5 +1,5 @@
 #region Offline image selection
-function Select-Wim ($WimFiles) {
+function Select-Wim ([Parameter(Mandatory)]$WimFiles) {
     $i = 1
     $available = $WimFiles | ForEach-Object {
         [PSCustomObject]@{
@@ -19,7 +19,7 @@ function Select-Wim ($WimFiles) {
     $Fullname = $available[$selected_index - 1].Path
     return $WimFiles | Where-Object FullName -EQ $Fullname
 }
-function Select-WimIndex ($WimFile) {
+function Select-WimIndex ([Parameter(Mandatory)]$WimFile) {
     $images = Get-WindowsImage -ImagePath $WimFile.FullName
     do {
         $images | Format-Table ImageIndex, ImageName | Out-Host
