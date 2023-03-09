@@ -1,20 +1,8 @@
 # Running pre actions
 Write-Host  -ForegroundColor Cyan "Load own Powershell functions from GitHub to extend functionality"
-irm https://raw.githubusercontent.com/ChrisStro/OSDCloud/main/addl/myFunctions.ps1 | iex
 
 #Start OSDCloud ZTI the RIGHT way
-if ($WimFiles = Find-OSDCloudOfflineFile -Name *.wim) {
-    Write-Host  -ForegroundColor Magenta "Start OSDCloud in offline mode"
-    $MyOSDCloud.ImageFileOffline = Select-Wim -WimFiles $WimFiles 
-    $MyOSDCloud.OSImageIndex = Select-WimIndex -WimFile $MyOSDCloud.ImageFileOffline
-    $MyOSDCloud.ZTI = $true
-    Write-Host  -ForegroundColor Magenta "Start deployment via Invoke-OSDCloud with following hashtable set :"
-    $MyOSDCloud
-    Invoke-OSDCloud
-} else {
-    Write-Host -ForegroundColor Green "No offline images found"
-    break
-}
+Start-OSDCloud -FindImageFile -SkipAutopilot -ZTI
 
 # Running post actions
 Write-Host  -ForegroundColor Cyan "Starting OSDCloud PostAction ..."
