@@ -32,10 +32,12 @@ Write-Host -ForegroundColor Magenta "Start OSDCloud in offline mode"
 Invoke-OSDCloud
 
 # Apply Provision Packages
-Write-Host  -ForegroundColor Cyan "Apply following Provisioning Packages to expanded OS"
-$MyOSDCloud.ProvPack
-Start-Sleep -Seconds 5
-Add-OSDCloudProvPackage $OSDCloud.ProvPack
+if ($MyOSDCloud.ProvPack) {
+    Write-Host  -ForegroundColor Cyan "Apply following Provisioning Packages to expanded OS"
+    $MyOSDCloud.ProvPack
+    Start-Sleep -Seconds 5
+    Add-OSDCloudProvPackage $OSDCloud.ProvPack
+}
 
 #Restart from WinPE
 Write-Host  -ForegroundColor Cyan "Restarting in 20 seconds!"
