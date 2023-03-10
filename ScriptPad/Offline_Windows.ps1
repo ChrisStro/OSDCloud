@@ -1,4 +1,4 @@
-Write-Host  -ForegroundColor Cyan "Starting OSDCloud with Provision Package support"
+Write-Host  -ForegroundColor Magenta "Starting OSDCloud with Provision Package support"
 Start-Sleep -Seconds 5
 
 # Load custom functions
@@ -7,21 +7,26 @@ Invoke-RestMethod "https://raw.githubusercontent.com/ChrisStro/OSDCloud/main/add
 
 # Change Display Resolution for Virtual Machine
 if ((Get-MyComputerModel) -match 'Virtual') {
-    Write-Host  -ForegroundColor Cyan "Setting Display Resolution to 1600x"
+    Write-Host -ForegroundColor Cyan "Setting Display Resolution to 1600x"
     Set-DisRes 1600
 }
 
 # Set basic Env variables
 Write-Host -ForegroundColor Cyan "Configure OSDCloud using Env variables"
-$Global:MyOSDCloud = @{} # will be parsed into $Global:OSDCloud by Invoke-OSDCloud
-$MyOSDCloud.ZTI = $true
+$Global:MyOSDCloud          = @{} # will be parsed into $Global:OSDCloud by Invoke-OSDCloud
+$MyOSDCloud.ZTI             = $false
+$MyOSDCloud.SkipClearDisk   = $true
 
 # Select offline image & index
-$MyOSDCloud.ImageFileItem = Select-OSDCloudFileWim
-$MyOSDCloud.OSImageIndex = Select-OSDCloudImageIndex -ImagePath $MyOSDCloud.ImageFileItem
+Write-Host -ForegroundColor Cyan "Load own function from GitHub to extend functionality"
+$MyOSDCloud.ImageFileItem   = Select-OSDCloudFileWim
+$MyOSDCloud.OSImageIndex    = Select-OSDCloudImageIndex -ImagePath $MyOSDCloud.ImageFileItem
 
 # Select Provision Packages
-$MyOSDCloud.ProvPack = Select-OSDCloudProvPackage
+$MyOSDCloud.ProvPack        = Select-OSDCloudProvPackage
+
+# Select Provision Packages
+$MyOSDCloud.ProvPack        = Select-OSDCloudProvPackage
 
 Write-Host -ForegroundColor DarkGray "Start deployment via Invoke-OSDCloud with following hashtable set :"
 $MyOSDCloud
