@@ -3,8 +3,10 @@ function Select-OSDCloudProvPackage {
     param (
         [switch]$All
     )
+
     $i = $null
-    $FindOSDCloudFile = Find-OSDCloudFile -Name "*.ppkg" -Path '\OSDCloud\PPKG\' | Sort-Object FullName
+    [array]$FindOSDCloudFile = Find-OSDCloudOfflineFile -Name *.ppkg | Sort-Object FullName
+
     $FindOSDCloudFile = $FindOSDCloudFile | Where-Object { $_.FullName -notlike "C*" }
 
     if ($FindOSDCloudFile) {
@@ -14,24 +16,24 @@ function Select-OSDCloudProvPackage {
         else {
             $ProvisioningPackages = foreach ($Item in $FindOSDCloudFile) {
                 $i++
-                
+
                 $root = $Item.PSDrive.Root
                 $SourceDevice = Get-CimInstance win32_Volume -Filter "Caption='$root\'" | Select-Object -ExpandProperty DeviceID # Get-Volume does not return device id for ramdrives
                 #$Fullpath = Join-Path -Path $DeviceID (Split-Path $Item -NoQualifier)
-        
+
                 [PSCustomObject]@{
                     Selection   = $i
                     Name        = $Item.Name
                     Fullname    = $Item.Fullname
                     SourceDevice    = $SourceDevice
-                }            
+                }
             }
-        
+
             $ProvisioningPackages | Select-Object -Property Selection, Name | Format-Table | Out-Host
-            $SelectedItems = @()                    
+            $SelectedItems = @()
             do {
                 if ($SelectedItems) { Write-Host "Current selection : $($SelectedItems -join ",") " }
-                
+
                 $SelectReadHost = Read-Host -Prompt "Enter the Selection of the Provisioning Package to apply, press [A]ll or [D]one or [S]kip"
                 if ($SelectReadHost -in $ProvisioningPackages.Selection -and $SelectReadHost -notin $SelectedItems) {
                     $SelectedItems += $SelectReadHost
@@ -44,13 +46,13 @@ function Select-OSDCloudProvPackage {
                 $SelectReadHost -eq 'S' -or
                 $SelectReadHost -eq 'D'
             )
-            
+
             if ($SelectReadHost -eq 'S') {
                 break
             }
 
             $ProvisioningPackages = $ProvisioningPackages | Where-Object { $_.Selection -in $SelectedItems }
-        
+
             Return $ProvisioningPackages
         }
     }
@@ -66,7 +68,7 @@ function Add-OSDCloudProvPackage {
             $PPKGPath = $item.Fullname
             $PPKGName = $item.name
             $PPKGSourceDevice = $item.SourceDevice
-            
+
             # Check if volume is accessible for dism ( does not support Volume Paths )
             $SourceDriveLetter = Get-CimInstance Win32_Volume | Where-Object DeviceID -eq $PPKGSourceDevice | Select-Object -ExpandProperty Caption
             if (!$SourceDriveLetter) {
@@ -75,14 +77,14 @@ function Add-OSDCloudProvPackage {
                 $freeDriveLetter = Get-ChildItem function:[d-z]: -Name | Where-Object{ !(test-path $_) } | Get-Random
                 $SourceDriveLetter = Set-Volume -UniqueId $PPKGSourceDevice -DriveLetter $freeDriveLetter
             }
-            
+
             $newPPKGPath = Join-Path $SourceDriveLetter (Split-Path -Path $PPKGPath -NoQualifier)
-            Write-Host -ForegroundColor DarkGray "Applying $PPKGName to Drive C: " -NoNewline
-        
+            Write-Host -ForegroundColor DarkGray "Applying $PPKGName " -NoNewline
+
             $command = "DISM.exe /Image=c:\ /Add-ProvisioningPackage /PackagePath:`"$newPPKGPath`""
             $result = $command | Invoke-Expression
             if ($tempAssign) {
-                Get-Volume -UniqueId $PPKGSourceDevice | Get-Partition | Remove-PartitionAccessPath -AccessPath "$freeDriveLetter\"            
+                Get-Volume -UniqueId $PPKGSourceDevice | Get-Partition | Remove-PartitionAccessPath -AccessPath "$freeDriveLetter\"
             }
             if ($LASTEXITCODE -eq 0) {
                 Write-Host -ForegroundColor Green "OK"
