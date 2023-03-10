@@ -13,20 +13,17 @@ if ((Get-MyComputerModel) -match 'Virtual') {
 
 # Set basic Env variables
 Write-Host -ForegroundColor Cyan "Configure OSDCloud using Env variables"
-$Global:MyOSDCloud          = @{} # will be parsed into $Global:OSDCloud by Invoke-OSDCloud
-$MyOSDCloud.ZTI             = $false
-$MyOSDCloud.SkipClearDisk   = $true
+$Global:MyOSDCloud              = @{} # will be parsed into $Global:OSDCloud by Invoke-OSDCloud
+$MyOSDCloud.ZTI                 = $false
+$MyOSDCloud.ClearDiskConfirm    = $false
 
 # Select offline image & index
 Write-Host -ForegroundColor Cyan "Load own function from GitHub to extend functionality"
-$MyOSDCloud.ImageFileItem   = Select-OSDCloudFileWim
-$MyOSDCloud.OSImageIndex    = Select-OSDCloudImageIndex -ImagePath $MyOSDCloud.ImageFileItem
+$MyOSDCloud.ImageFileItem       = Select-OSDCloudFileWim
+$MyOSDCloud.OSImageIndex        = Select-OSDCloudImageIndex -ImagePath $MyOSDCloud.ImageFileItem
 
 # Select Provision Packages
-$MyOSDCloud.ProvPack        = Select-OSDCloudProvPackage
-
-# Select Provision Packages
-$MyOSDCloud.ProvPack        = Select-OSDCloudProvPackage
+$MyOSDCloud.ProvPack            = Select-OSDCloudProvPackage
 
 Write-Host -ForegroundColor DarkGray "Start deployment via Invoke-OSDCloud with following hashtable set :"
 $MyOSDCloud
@@ -35,7 +32,9 @@ Write-Host -ForegroundColor Magenta "Start OSDCloud in offline mode"
 Invoke-OSDCloud
 
 # Apply Provision Packages
-Write-Host  -ForegroundColor Cyan "Add Provisioning Packages to expanded OS"
+Write-Host  -ForegroundColor Cyan "Apply following Provisioning Packages to expanded OS"
+$MyOSDCloud.ProvPack
+Start-Sleep -Seconds 5
 Add-OSDCloudProvPackage $OSDCloud.ProvPack
 
 #Restart from WinPE
