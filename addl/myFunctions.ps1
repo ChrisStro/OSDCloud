@@ -48,7 +48,7 @@ function Select-OSDCloudProvPackage {
             )
 
             if ($SelectReadHost -eq 'S') {
-                break
+                Return
             }
 
             $ProvisioningPackages = $ProvisioningPackages | Where-Object { $_.Selection -in $SelectedItems }
@@ -90,6 +90,35 @@ function Add-OSDCloudProvPackage {
                 Write-Host -ForegroundColor Green "OK"
             }
             else {
+                Write-Host -ForegroundColor Red "FAIL"
+                throw "There was en error when applying $PPKGName offline. Error was $result"
+            }
+        }
+    }
+}
+function Add-OSDCloudProvPackageWeb {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromPipeline)]
+        [object[]]$OSDCloudProvPackagesUrl
+    )
+    begin {
+        if (-not (Test-Path -Path "c:\Provpack")) {
+            New-Item -ItemType Directory -Path "c:\Provpack" | Out-Null
+        }
+    }
+
+    process {
+        foreach ($url in $OSDCloudProvPackagesUrl) {
+            $fileName = [string]$url.split("/")[-1]
+            $newPPKGPath = "c:\Provpack\$fileName"
+            Get-FileFromWeb $url $newPPKGPath
+
+            $command = "DISM.exe /Image=c:\ /Add-ProvisioningPackage /PackagePath:`"$newPPKGPath`""
+            $result = $command | Invoke-Expression
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host -ForegroundColor Green "OK"
+            } else {
                 Write-Host -ForegroundColor Red "FAIL"
                 throw "There was en error when applying $PPKGName offline. Error was $result"
             }
